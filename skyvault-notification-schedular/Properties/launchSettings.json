@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "skyvault_notification_schedular": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7123",
+      "launchBrowser": false
+    }
+  }
+}
