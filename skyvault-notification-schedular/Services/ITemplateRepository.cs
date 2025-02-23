@@ -9,6 +9,6 @@ namespace skyvault_notification_schedular.Services
 {
     public interface ITemplateRepository
     {
-        Task<string?> GetBirthdayImageURL();
+        Task<string?> GetEmailContent(NotificationTypeEnum notificationType);
     }
 }

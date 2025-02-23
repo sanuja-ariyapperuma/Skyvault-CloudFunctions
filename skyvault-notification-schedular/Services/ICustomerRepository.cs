@@ -10,5 +10,7 @@ namespace skyvault_notification_schedular.Services
     public interface ICustomerRepository
     {
         Task<List<Recipient>> GetCustomersWithBirthdayToday();
+        Task<List<Recipient>> GetCustomersWithPassportExpiryFromSixMonths(string date);
+        Task<List<Recipient>> GetCustomersWithVisaExpiryFromThreeMonths(string date);
     }
 }

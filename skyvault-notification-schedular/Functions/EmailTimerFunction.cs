@@ -29,8 +29,8 @@ namespace skyvault_notification_schedular.Functions
                 var tasks = new[]
                 {
                     SendBirthdayNotification(),
-                    //SendPassportExpirationNotification(connectionString),
-                    //SendVisaExpirationNotification(connectionString)
+                    SendPassportExpirationNotification(),
+                    SendVisaExpirationNotification()
                 };
 
                 await Task.WhenAll(tasks);
@@ -44,9 +44,9 @@ namespace skyvault_notification_schedular.Functions
         private async Task SendBirthdayNotification()
         {
             var recipients = await customerRepository.GetCustomersWithBirthdayToday();
-            var birthdayImageURL = await templateRepository.GetBirthdayImageURL();
+            var birthdayImageURL = await templateRepository.GetEmailContent(NotificationTypeEnum.Birthday);
 
-            if (recipients == null || !recipients.Any())
+            if (recipients == null || recipients.Count == 0)
             {
                 LoggerService.Log.LogInformation("No birthday notifications to send today.");
                 return;
@@ -59,33 +59,63 @@ namespace skyvault_notification_schedular.Functions
             }
 
             LoggerService.Log.LogInformation($"Sending birthday notifications to : {recipients.Count()} clients");
-            LoggerService.Log.LogInformation($"Image URL : {birthdayImageURL}");
 
-            recipients.ForEach(recipient => recipient.SetEmailBody(birthdayImageURL));
+            recipients.ForEach(recipient => recipient.SetBirthdayEmailBody(birthdayImageURL));
 
             await emailService.SendEmailAsync(recipients, "Greetings from Travel Channel (Private) Limited");
         }
 
 
-        //private async Task SendPassportExpirationNotification(string connectionString)
-        //{
-        //    await using var connection = new MySqlConnection(connectionString);
-        //    await connection.OpenAsync();
+        private async Task SendPassportExpirationNotification()
+        {
+            string sixMonthsFromNow = DateTime.UtcNow.AddMonths(6).ToString("yyyy-MM-dd");
+            var recipients = await customerRepository.GetCustomersWithPassportExpiryFromSixMonths(sixMonthsFromNow);
+            var message = await templateRepository.GetEmailContent(NotificationTypeEnum.PassportExpiration);
 
-        //    string sixMonthsFromNow = DateTime.UtcNow.AddMonths(6).ToString("yyyy-MM-dd");
-        //    using var cmd = new MySqlCommand($"SELECT COUNT(*) FROM passports WHERE ExpiryDate = '{sixMonthsFromNow}'", connection);
-        //    int count = Convert.ToInt32(await cmd.ExecuteScalarAsync());
-        //    _logger.LogInformation($"Passports expiring in 6 months count: {count}");
-        //}
+            if (recipients == null || recipients.Count == 0)
+            {
+                LoggerService.Log.LogInformation("No passport expiry notifications to send today.");
+                return;
+            }
 
-        //private async Task SendVisaExpirationNotification(string connectionString)
-        //{
-        //    await using var connection = new MySqlConnection(connectionString);
-        //    await connection.OpenAsync();
+            if (string.IsNullOrEmpty(message))
+            {
+                LoggerService.Log.LogError("No passport expiry message found.");
+                return;
+            }
 
-        //    using var cmd = new MySqlCommand("SELECT COUNT(*) FROM visas WHERE expire_date < NOW()", connection);
-        //    int count = Convert.ToInt32(await cmd.ExecuteScalarAsync());
-        //    _logger.LogInformation($"Visa expiration count: {count}");
-        //}
+            LoggerService.Log.LogInformation($"Sending passport expiry notifications to : {recipients.Count()} clients");
+            
+            recipients.ForEach(recipient => recipient.SetPassportOrVisaEmailBody(message));
+
+            await emailService.SendEmailAsync(recipients, "Passport Expiry Reminder - Travel Channel (Private) Limited");
+
+        }
+
+        private async Task SendVisaExpirationNotification()
+        {
+            string threeMonthsFromNow = DateTime.UtcNow.AddMonths(3).ToString("yyyy-MM-dd");
+            var recipients = await customerRepository.GetCustomersWithVisaExpiryFromThreeMonths(threeMonthsFromNow);
+            var message = await templateRepository.GetEmailContent(NotificationTypeEnum.VisaExpiration);
+
+            if (recipients == null || recipients.Count == 0)
+            {
+                LoggerService.Log.LogInformation("No visa expiry notifications to send today.");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(message))
+            {
+                LoggerService.Log.LogError("No visa expiry message found.");
+                return;
+            }
+
+            LoggerService.Log.LogInformation($"Sending visa expiry notifications to : {recipients.Count()} clients");
+
+            recipients.ForEach(recipient => recipient.SetPassportOrVisaEmailBody(message));
+
+            await emailService.SendEmailAsync(recipients, "Visa Expiry Reminder - Travel Channel (Private) Limited");
+
+        }
     }
 }
