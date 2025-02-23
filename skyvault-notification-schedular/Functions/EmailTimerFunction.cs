@@ -1,19 +1,12 @@
-using System;
-using System.Data;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading.Tasks;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
-using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Cms;
-using Org.BouncyCastle.Tls;
 using skyvault_notification_schedular.Models;
 using skyvault_notification_schedular.Services;
 
 namespace skyvault_notification_schedular.Functions
 {
     public class EmailTimerFunction(
-        ILoggerFactory loggerFactory, 
+        ILoggerFactory loggerFactory,
         ICustomerRepository customerRepository,
         ITemplateRepository templateRepository,
         IEmailService emailService)
@@ -26,7 +19,7 @@ namespace skyvault_notification_schedular.Functions
 
             try
             {
-                var tasks = new[]
+                var tasks = new List<Task>
                 {
                     SendBirthdayNotification(),
                     SendPassportExpirationNotification(),
@@ -85,7 +78,7 @@ namespace skyvault_notification_schedular.Functions
             }
 
             LoggerService.Log.LogInformation($"Sending passport expiry notifications to : {recipients.Count()} clients");
-            
+
             recipients.ForEach(recipient => recipient.SetPassportOrVisaEmailBody(message));
 
             await emailService.SendEmailAsync(recipients, "Passport Expiry Reminder - Travel Channel (Private) Limited");
