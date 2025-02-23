@@ -6,10 +6,10 @@ using skyvault_notification_schedular.Services;
 namespace skyvault_notification_schedular.Functions
 {
     public class EmailTimerFunction(
-        ILoggerFactory loggerFactory,
-        ICustomerRepository customerRepository,
-        ITemplateRepository templateRepository,
-        IEmailService emailService)
+            ILoggerFactory loggerFactory,
+            ICustomerRepository customerRepository,
+            ITemplateRepository templateRepository,
+            IEmailService emailService)
     {
 
         [Function("EmailTimerFunctionr")]
@@ -20,17 +20,17 @@ namespace skyvault_notification_schedular.Functions
             try
             {
                 var tasks = new List<Task>
-                {
-                    SendBirthdayNotification(),
-                    SendPassportExpirationNotification(),
-                    SendVisaExpirationNotification()
-                };
+                    {
+                        SendBirthdayNotification(),
+                        SendPassportExpirationNotification(),
+                        SendVisaExpirationNotification()
+                    };
 
                 await Task.WhenAll(tasks);
             }
             catch (Exception ex)
             {
-                LoggerService.Log.LogError($"Unexpected error occurred: {ex.Message}");
+                LoggerService.Log.LogError(ex, "Unexpected error occurred: {Message}", ex.Message);
             }
         }
 
@@ -51,7 +51,7 @@ namespace skyvault_notification_schedular.Functions
                 return;
             }
 
-            LoggerService.Log.LogInformation($"Sending birthday notifications to : {recipients.Count()} clients");
+            LoggerService.Log.LogInformation("Sending birthday notifications to : {Count} clients", recipients.Count());
 
             recipients.ForEach(recipient => recipient.SetBirthdayEmailBody(birthdayImageURL));
 
@@ -77,7 +77,7 @@ namespace skyvault_notification_schedular.Functions
                 return;
             }
 
-            LoggerService.Log.LogInformation($"Sending passport expiry notifications to : {recipients.Count()} clients");
+            LoggerService.Log.LogInformation("Sending passport expiry notifications to : {Count} clients", recipients.Count());
 
             recipients.ForEach(recipient => recipient.SetPassportOrVisaEmailBody(message));
 
@@ -103,7 +103,7 @@ namespace skyvault_notification_schedular.Functions
                 return;
             }
 
-            LoggerService.Log.LogInformation($"Sending visa expiry notifications to : {recipients.Count()} clients");
+            LoggerService.Log.LogInformation("Sending visa expiry notifications to : {Count} clients", recipients.Count());
 
             recipients.ForEach(recipient => recipient.SetPassportOrVisaEmailBody(message));
 
