@@ -4,6 +4,7 @@
 *.suo
 *.userprefs
 .vscode/
+.vs/
 
 ## Windows Installer files
 Thumbs.db
