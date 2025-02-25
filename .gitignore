@@ -15,6 +15,11 @@ obj/
 project.lock.json
 project.fragment.lock.json
 artifacts/
+copilot-chat/
+DesignTimeBuild/
+FileContentIndex/
+v17/
+CopilotIndices/
 
 ## Azure Functions files
 local.settings.json
