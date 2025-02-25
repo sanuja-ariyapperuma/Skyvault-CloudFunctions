@@ -132,27 +132,117 @@ namespace skyvault_notification_schedular_tests.Functions
                 It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)),
                 Times.Once);
         }
-        //[Fact]
-        //public async Task RunAsync_ShouldLogError_WhenNoPassportExpiryNotificationsFound()
-        //{
-        //    // Arrange
-        //    var timerInfo = new TimerInfo();
-        //    string sixMonthsFromNow = DateTime.UtcNow.AddMonths(6).ToString("yyyy-MM-dd");
-        //    _customerRepositoryMock.Setup(repo => repo.GetCustomersWithPassportExpiryFromSixMonths(sixMonthsFromNow)).ReturnsAsync(new List<Recipient>());
-        //    _templateRepositoryMock.Setup(repo => repo.GetEmailContent(NotificationTypeEnum.Birthday)).ReturnsAsync((string)null);
+        [Fact]
+        public async Task SendPassportExpirationNotification_ShouldLogInformation_WhenNoRecipients()
+        {
+            // Arrange
+            var timerInfo = new TimerInfo();
+            _customerRepositoryMock.Setup(repo => repo.GetCustomersWithPassportExpiryFromSixMonths(It.IsAny<string>())).ReturnsAsync(new List<Recipient>());
+            _templateRepositoryMock.Setup(repo => repo.GetEmailContent(NotificationTypeEnum.PassportExpiration)).ReturnsAsync("Passport expiration message");
 
-        //    // Act
-        //    await _emailTimerFunction.RunAsync(timerInfo);
+            // Act
+            await _emailTimerFunction.RunAsync(timerInfo);
 
-        //    // Assert
-        //    _loggerMock.Verify(logger => logger.Log(
-        //        It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
-        //        It.IsAny<EventId>(),
-        //        It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("No passport expiry message found.")),
-        //        It.IsAny<Exception>(),
-        //        It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)),
-        //        Times.Once);
-        //}
+            // Assert
+            _loggerMock.Verify(logger => logger.Log(
+                It.Is<LogLevel>(logLevel => logLevel == LogLevel.Information),
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("No passport expiry notifications to send today")),
+                It.IsAny<Exception>(),
+                It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)),
+                Times.Once);
+        }
+        [Fact]
+        public async Task SendPassportExpirationNotification_ShouldLogError_WhenNoMessageFound()
+        {
+            // Arrange
+            var timerInfo = new TimerInfo();
+            var recipients = new List<Recipient> { new Recipient { Name = "John Doe", Email = "john@example.com" } };
+            _customerRepositoryMock.Setup(repo => repo.GetCustomersWithPassportExpiryFromSixMonths(It.IsAny<string>())).ReturnsAsync(recipients);
+            _templateRepositoryMock.Setup(repo => repo.GetEmailContent(NotificationTypeEnum.PassportExpiration)).ReturnsAsync((string)null);
 
+            // Act
+            await _emailTimerFunction.RunAsync(timerInfo);
+
+            // Assert
+            _loggerMock.Verify(logger => logger.Log(
+                It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("No passport expiry message found")),
+                It.IsAny<Exception>(),
+                It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)),
+                Times.Once);
+        }
+        [Fact]
+        public async Task SendPassportExpirationNotification_ShouldSendEmails_WhenRecipientsExist()
+        {
+            // Arrange
+            var timerInfo = new TimerInfo();
+            var recipients = new List<Recipient> { new Recipient { Name = "John Doe", Email = "john@example.com" } };
+            _customerRepositoryMock.Setup(repo => repo.GetCustomersWithPassportExpiryFromSixMonths(It.IsAny<string>())).ReturnsAsync(recipients);
+            _templateRepositoryMock.Setup(repo => repo.GetEmailContent(NotificationTypeEnum.PassportExpiration)).ReturnsAsync("Passport expiration message");
+
+            // Act
+            await _emailTimerFunction.RunAsync(timerInfo);
+
+            // Assert
+            _emailServiceMock.Verify(service => service.SendEmailAsync(recipients, "Passport Expiry Reminder - Travel Channel (Private) Limited"), Times.Once);
+        }
+        [Fact]
+        public async Task SendVisaExpirationNotification_ShouldLogInformation_WhenNoRecipients()
+        {
+            // Arrange
+            var timerInfo = new TimerInfo();
+            _customerRepositoryMock.Setup(repo => repo.GetCustomersWithVisaExpiryFromThreeMonths(It.IsAny<string>())).ReturnsAsync(new List<Recipient>());
+            _templateRepositoryMock.Setup(repo => repo.GetEmailContent(NotificationTypeEnum.VisaExpiration)).ReturnsAsync("Visa expiration message");
+
+            // Act
+            await _emailTimerFunction.RunAsync(timerInfo);
+
+            // Assert
+            _loggerMock.Verify(logger => logger.Log(
+                It.Is<LogLevel>(logLevel => logLevel == LogLevel.Information),
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("No visa expiry notifications to send today")),
+                It.IsAny<Exception>(),
+                It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)),
+                Times.Once);
+        }
+        [Fact]
+        public async Task SendVisaExpirationNotification_ShouldLogError_WhenNoMessageFound()
+        {
+            // Arrange
+            var timerInfo = new TimerInfo();
+            var recipients = new List<Recipient> { new Recipient { Name = "John Doe", Email = "john@example.com" } };
+            _customerRepositoryMock.Setup(repo => repo.GetCustomersWithVisaExpiryFromThreeMonths(It.IsAny<string>())).ReturnsAsync(recipients);
+            _templateRepositoryMock.Setup(repo => repo.GetEmailContent(NotificationTypeEnum.VisaExpiration)).ReturnsAsync((string)null);
+
+            // Act
+            await _emailTimerFunction.RunAsync(timerInfo);
+
+            // Assert
+            _loggerMock.Verify(logger => logger.Log(
+                It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("No visa expiry message found")),
+                It.IsAny<Exception>(),
+                It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)),
+                Times.Once);
+        }
+        [Fact]
+        public async Task SendVisaExpirationNotification_ShouldSendEmails_WhenRecipientsExist()
+        {
+            // Arrange
+            var timerInfo = new TimerInfo();
+            var recipients = new List<Recipient> { new Recipient { Name = "John Doe", Email = "john@example.com" } };
+            _customerRepositoryMock.Setup(repo => repo.GetCustomersWithVisaExpiryFromThreeMonths(It.IsAny<string>())).ReturnsAsync(recipients);
+            _templateRepositoryMock.Setup(repo => repo.GetEmailContent(NotificationTypeEnum.VisaExpiration)).ReturnsAsync("Visa expiration message");
+
+            // Act
+            await _emailTimerFunction.RunAsync(timerInfo);
+
+            // Assert
+            _emailServiceMock.Verify(service => service.SendEmailAsync(recipients, "Visa Expiry Reminder - Travel Channel (Private) Limited"), Times.Once);
+        }
     }
 }

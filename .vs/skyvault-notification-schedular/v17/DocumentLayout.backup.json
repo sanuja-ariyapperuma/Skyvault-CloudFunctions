@@ -11,6 +11,10 @@
       "RelativeMoniker": "D:0:0:{3CC81968-075A-423B-99EE-ED73E6E0CD23}|skyvault-notification-schedular\\skyvault-notification-schedular.csproj|solutionrelative:skyvault-notification-schedular\\functions\\emailtimerfunction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{3CC81968-075A-423B-99EE-ED73E6E0CD23}|skyvault-notification-schedular\\skyvault-notification-schedular.csproj|d:\\dev\\projects\\travel_channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\services\\brevoemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3CC81968-075A-423B-99EE-ED73E6E0CD23}|skyvault-notification-schedular\\skyvault-notification-schedular.csproj|solutionrelative:skyvault-notification-schedular\\services\\brevoemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3CC81968-075A-423B-99EE-ED73E6E0CD23}|skyvault-notification-schedular\\skyvault-notification-schedular.csproj|d:\\dev\\projects\\travel_channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\skyvault-notification-schedular.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{3CC81968-075A-423B-99EE-ED73E6E0CD23}|skyvault-notification-schedular\\skyvault-notification-schedular.csproj|solutionrelative:skyvault-notification-schedular\\skyvault-notification-schedular.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
@@ -25,10 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{3CC81968-075A-423B-99EE-ED73E6E0CD23}|skyvault-notification-schedular\\skyvault-notification-schedular.csproj|d:\\dev\\projects\\travel_channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\models\\notificationtypeenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3CC81968-075A-423B-99EE-ED73E6E0CD23}|skyvault-notification-schedular\\skyvault-notification-schedular.csproj|solutionrelative:skyvault-notification-schedular\\models\\notificationtypeenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3CC81968-075A-423B-99EE-ED73E6E0CD23}|skyvault-notification-schedular\\skyvault-notification-schedular.csproj|d:\\dev\\projects\\travel_channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\services\\brevoemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3CC81968-075A-423B-99EE-ED73E6E0CD23}|skyvault-notification-schedular\\skyvault-notification-schedular.csproj|solutionrelative:skyvault-notification-schedular\\services\\brevoemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3CC81968-075A-423B-99EE-ED73E6E0CD23}|skyvault-notification-schedular\\skyvault-notification-schedular.csproj|d:\\dev\\projects\\travel_channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\models\\recipient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -73,8 +73,8 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 193,
-          "SelectedChildIndex": 2,
+          "DockedWidth": 169,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -83,14 +83,26 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "LoggerService.cs",
-              "DocumentMoniker": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\Services\\LoggerService.cs",
-              "RelativeDocumentMoniker": "skyvault-notification-schedular\\Services\\LoggerService.cs",
-              "ToolTip": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\Services\\LoggerService.cs",
-              "RelativeToolTip": "skyvault-notification-schedular\\Services\\LoggerService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAtAAAAAAAAAA==",
+              "Title": "skyvault-notification-schedular.csproj",
+              "DocumentMoniker": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\skyvault-notification-schedular.csproj",
+              "RelativeDocumentMoniker": "skyvault-notification-schedular\\skyvault-notification-schedular.csproj",
+              "ToolTip": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\skyvault-notification-schedular.csproj",
+              "RelativeToolTip": "skyvault-notification-schedular\\skyvault-notification-schedular.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-11T19:32:56.893Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BrevoEmailService.cs",
+              "DocumentMoniker": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\Services\\BrevoEmailService.cs",
+              "RelativeDocumentMoniker": "skyvault-notification-schedular\\Services\\BrevoEmailService.cs",
+              "ToolTip": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\Services\\BrevoEmailService.cs",
+              "RelativeToolTip": "skyvault-notification-schedular\\Services\\BrevoEmailService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-24T19:08:07.027Z",
+              "WhenOpened": "2025-02-12T20:09:08.06Z",
               "EditorCaption": ""
             },
             {
@@ -101,40 +113,26 @@
               "RelativeDocumentMoniker": "skyvault-notification-schedular-tests\\Functions\\EmailTimerFunctionTests.cs",
               "ToolTip": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular-tests\\Functions\\EmailTimerFunctionTests.cs",
               "RelativeToolTip": "skyvault-notification-schedular-tests\\Functions\\EmailTimerFunctionTests.cs",
-              "ViewState": "AgIAAE8AAAAAAAAAAAA0wIYAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAANgAAAAAAAAAAAAUwO0AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-24T19:04:37.36Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "skyvault-notification-schedular.csproj",
-              "DocumentMoniker": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\skyvault-notification-schedular.csproj",
-              "RelativeDocumentMoniker": "skyvault-notification-schedular\\skyvault-notification-schedular.csproj",
-              "ToolTip": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\skyvault-notification-schedular.csproj",
-              "RelativeToolTip": "skyvault-notification-schedular\\skyvault-notification-schedular.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-02-11T19:32:56.893Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "EmailTimerFunction.cs",
-              "DocumentMoniker": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\Functions\\EmailTimerFunction.cs",
-              "RelativeDocumentMoniker": "skyvault-notification-schedular\\Functions\\EmailTimerFunction.cs",
-              "ToolTip": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\Functions\\EmailTimerFunction.cs",
-              "RelativeToolTip": "skyvault-notification-schedular\\Functions\\EmailTimerFunction.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAowEsAAABNAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T19:21:11.56Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "LoggerService.cs",
+              "DocumentMoniker": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\Services\\LoggerService.cs",
+              "RelativeDocumentMoniker": "skyvault-notification-schedular\\Services\\LoggerService.cs",
+              "ToolTip": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\Services\\LoggerService.cs",
+              "RelativeToolTip": "skyvault-notification-schedular\\Services\\LoggerService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T19:08:07.027Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "UnitTest1.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular-tests\\UnitTest1.cs",
               "RelativeDocumentMoniker": "skyvault-notification-schedular-tests\\UnitTest1.cs",
@@ -142,8 +140,7 @@
               "RelativeToolTip": "skyvault-notification-schedular-tests\\UnitTest1.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-24T19:02:08.91Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-24T19:02:08.91Z"
             },
             {
               "$type": "Document",
@@ -155,8 +152,7 @@
               "RelativeToolTip": "skyvault-notification-schedular\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T19:30:37.852Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-11T19:30:37.852Z"
             },
             {
               "$type": "Document",
@@ -168,12 +164,11 @@
               "RelativeToolTip": "skyvault-notification-schedular\\Models\\Recipient.cs",
               "ViewState": "AgIAAAsAAAAAAAAAAAAwwB8AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-12T19:42:05.152Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-12T19:42:05.152Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "NotificationTypeEnum.cs",
               "DocumentMoniker": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\Models\\NotificationTypeEnum.cs",
               "RelativeDocumentMoniker": "skyvault-notification-schedular\\Models\\NotificationTypeEnum.cs",
@@ -181,21 +176,7 @@
               "RelativeToolTip": "skyvault-notification-schedular\\Models\\NotificationTypeEnum.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T14:19:50.717Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "BrevoEmailService.cs",
-              "DocumentMoniker": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\Services\\BrevoEmailService.cs",
-              "RelativeDocumentMoniker": "skyvault-notification-schedular\\Services\\BrevoEmailService.cs",
-              "ToolTip": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\Services\\BrevoEmailService.cs",
-              "RelativeToolTip": "skyvault-notification-schedular\\Services\\BrevoEmailService.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAD4vzgAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-12T20:09:08.06Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-22T14:19:50.717Z"
             },
             {
               "$type": "Document",
@@ -207,8 +188,7 @@
               "RelativeToolTip": "skyvault-notification-schedular\\Services\\TemplateRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAIBJwB8AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T14:38:58.474Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-22T14:38:58.474Z"
             },
             {
               "$type": "Document",
@@ -220,8 +200,7 @@
               "RelativeToolTip": "skyvault-notification-schedular\\Services\\ITemplateRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T14:18:09.176Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-22T14:18:09.176Z"
             },
             {
               "$type": "Document",
@@ -233,8 +212,7 @@
               "RelativeToolTip": "skyvault-notification-schedular\\Services\\CustomerRepository.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAQwBcAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-12T20:22:09.585Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-12T20:22:09.585Z"
             },
             {
               "$type": "Document",
@@ -246,8 +224,7 @@
               "RelativeToolTip": "skyvault-notification-schedular\\Services\\ICustomerRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-12T20:21:21.61Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-12T20:21:21.61Z"
             },
             {
               "$type": "Document",
@@ -259,8 +236,7 @@
               "RelativeToolTip": "skyvault-notification-schedular\\Services\\IEmailService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T15:14:04.927Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-22T15:14:04.927Z"
             },
             {
               "$type": "Document",
@@ -272,8 +248,7 @@
               "RelativeToolTip": "skyvault-notification-schedular\\local.settings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-02-11T19:24:35.171Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-11T19:24:35.171Z"
             },
             {
               "$type": "Document",
@@ -285,18 +260,30 @@
               "RelativeToolTip": "skyvault-notification-schedular\\Services\\DatabaseService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-12T20:08:52.388Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-12T20:08:52.388Z"
             }
           ]
         },
         {
-          "DockedWidth": 207,
-          "SelectedChildIndex": -1,
+          "DockedWidth": 231,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EmailTimerFunction.cs",
+              "DocumentMoniker": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\Functions\\EmailTimerFunction.cs",
+              "RelativeDocumentMoniker": "skyvault-notification-schedular\\Functions\\EmailTimerFunction.cs",
+              "ToolTip": "D:\\Dev\\Projects\\Travel_Channel_v2_0\\skyvault-notification-schedular\\skyvault-notification-schedular\\Functions\\EmailTimerFunction.cs",
+              "RelativeToolTip": "skyvault-notification-schedular\\Functions\\EmailTimerFunction.cs",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAwwG8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T19:21:11.56Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
