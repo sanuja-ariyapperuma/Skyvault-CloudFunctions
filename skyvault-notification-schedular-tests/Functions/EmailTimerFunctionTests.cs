@@ -230,13 +230,34 @@ namespace skyvault_notification_schedular_tests.Functions
                 Times.Once);
         }
         [Fact]
+        public async Task SendVisaExpirationNotification_ShouldLogError_WhenNoCountryNamePlaceholderFound()
+        {
+            // Arrange
+            var timerInfo = new TimerInfo();
+            var recipients = new List<Recipient> { new Recipient { Name = "John Doe", Email = "john@example.com" } };
+            _customerRepositoryMock.Setup(repo => repo.GetCustomersWithVisaExpiryFromThreeMonths(It.IsAny<string>())).ReturnsAsync(recipients);
+            _templateRepositoryMock.Setup(repo => repo.GetEmailContent(NotificationTypeEnum.VisaExpiration)).ReturnsAsync("message without the placeholder");
+
+            // Act
+            await _emailTimerFunction.RunAsync(timerInfo);
+
+            // Assert
+            _loggerMock.Verify(logger => logger.Log(
+                It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("No country_name found in visa expiry message.")),
+                It.IsAny<Exception>(),
+                It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)),
+                Times.Once);
+        }
+        [Fact]
         public async Task SendVisaExpirationNotification_ShouldSendEmails_WhenRecipientsExist()
         {
             // Arrange
             var timerInfo = new TimerInfo();
             var recipients = new List<Recipient> { new Recipient { Name = "John Doe", Email = "john@example.com" } };
             _customerRepositoryMock.Setup(repo => repo.GetCustomersWithVisaExpiryFromThreeMonths(It.IsAny<string>())).ReturnsAsync(recipients);
-            _templateRepositoryMock.Setup(repo => repo.GetEmailContent(NotificationTypeEnum.VisaExpiration)).ReturnsAsync("Visa expiration message");
+            _templateRepositoryMock.Setup(repo => repo.GetEmailContent(NotificationTypeEnum.VisaExpiration)).ReturnsAsync("sometext country_name sometext");
 
             // Act
             await _emailTimerFunction.RunAsync(timerInfo);

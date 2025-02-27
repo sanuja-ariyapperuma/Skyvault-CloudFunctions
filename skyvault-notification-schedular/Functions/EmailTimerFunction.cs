@@ -55,7 +55,7 @@ namespace skyvault_notification_schedular.Functions
 
             recipients.ForEach(recipient => recipient.SetBirthdayEmailBody(birthdayImageURL));
 
-            await emailService.SendEmailAsync(recipients, "Greetings from Travel Channel (Private) Limited");
+            //await emailService.SendEmailAsync(recipients, "Greetings from Travel Channel (Private) Limited");
         }
 
 
@@ -81,7 +81,7 @@ namespace skyvault_notification_schedular.Functions
 
             recipients.ForEach(recipient => recipient.SetPassportOrVisaEmailBody(message));
 
-            await emailService.SendEmailAsync(recipients, "Passport Expiry Reminder - Travel Channel (Private) Limited");
+            //await emailService.SendEmailAsync(recipients, "Passport Expiry Reminder - Travel Channel (Private) Limited");
 
         }
 
@@ -103,12 +103,21 @@ namespace skyvault_notification_schedular.Functions
                 return;
             }
 
-            LoggerService.Log.LogInformation("Sending visa expiry notifications to : {Count} clients", recipients.Count());
+            if (!message.Contains("country_name"))
+            {
+                LoggerService.Log.LogError("No country_name found in visa expiry message.");
+                return;
+            }
 
-            recipients.ForEach(recipient => recipient.SetPassportOrVisaEmailBody(message));
+            LoggerService.Log.LogInformation("Sending visa expiry notifications to : {Count} clients", recipients.Count);
 
-            await emailService.SendEmailAsync(recipients, "Visa Expiry Reminder - Travel Channel (Private) Limited");
+            foreach (var recipient in recipients)
+            {
+                recipient.SetPassportOrVisaEmailBody(message);
+                recipient.EmailBody = recipient.EmailBody.Replace("country_name", recipient.VisaCountry);
+            }
 
+            //await emailService.SendEmailAsync(recipients, "Visa Expiry Reminder - Travel Channel (Private) Limited");
         }
     }
 }
