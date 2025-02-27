@@ -4,7 +4,7 @@ using skyvault_notification_schedular.Models;
 
 namespace skyvault_notification_schedular.Services
 {
-    public sealed class CustomerRepository(IDataAccess _dataAccess) : ICustomerRepository
+    public sealed class CustomerRepository(IDataAccess dataAccess) : ICustomerRepository
     {
         private readonly string _commonSQL = @"
                 SELECT CONCAT(s.salutation_name, '. ', other_names, ' ', last_name) AS name, 
@@ -16,6 +16,8 @@ namespace skyvault_notification_schedular.Services
                 WHERE cp.email != ''
             ";
 
+        private readonly IDataAccess _dataAccess = dataAccess;
+
         public async Task<List<Recipient>> GetCustomersWithBirthdayToday()
         {
             
@@ -26,6 +28,7 @@ namespace skyvault_notification_schedular.Services
                   AND DATE_FORMAT(p.date_of_birth, '%m-%d') = DATE_FORMAT(CURDATE(), '%m-%d')";
 
             var result = await _dataAccess.QueryAsync<Recipient>(sql);
+
             return [.. result];
         }
 

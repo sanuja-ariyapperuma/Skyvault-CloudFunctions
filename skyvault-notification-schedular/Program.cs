@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
 using skyvault_notification_schedular.Services;
 using System.Data;
+using System.Threading.Tasks;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWebApplication()
@@ -23,10 +24,11 @@ var host = new HostBuilder()
             Environment.Exit(1);
         }
 
-        services.AddSingleton<IDbConnection>(sp => new SqlConnection(_connectionString));
-        services.AddSingleton<ITemplateRepository>(new TemplateRepository(_connectionString));
+        services.AddTransient<IDataAccess>(provider => new DapperDataAccess(_connectionString));
+        services.AddSingleton<ICustomerRepository, CustomerRepository>();
         services.AddSingleton<IEmailService>(new BrevoEmailService());
+        services.AddSingleton<ITemplateRepository>(provider => new TemplateRepository(_connectionString));
     })
     .Build();
 
-host.Run();
+await host.RunAsync();
