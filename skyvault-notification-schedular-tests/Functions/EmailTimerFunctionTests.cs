@@ -1,6 +1,7 @@
 ﻿using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Moq;
+using skyvault_notification_schedular.Data;
 using skyvault_notification_schedular.Functions;
 using skyvault_notification_schedular.Models;
 using skyvault_notification_schedular.Services;

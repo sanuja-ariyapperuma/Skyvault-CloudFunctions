@@ -1,9 +1,10 @@
-﻿using skyvault_notification_schedular.Models;
+﻿using skyvault_notification_schedular.Data;
 
 namespace skyvault_notification_schedular.Services
 {
     public interface ITemplateRepository
     {
-        Task<string?> GetEmailContent(NotificationTypeEnum notificationType);
+        Task<EmailContent?> GetEmailContent(NotificationTypeEnum notificationType);
+        Task<EmailContent?> GetPromotionContent(int templateId);
     }
 }

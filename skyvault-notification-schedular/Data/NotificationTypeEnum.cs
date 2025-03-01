@@ -1,4 +1,4 @@
-﻿namespace skyvault_notification_schedular.Models
+﻿namespace skyvault_notification_schedular.Data
 {
     public enum NotificationTypeEnum
     {

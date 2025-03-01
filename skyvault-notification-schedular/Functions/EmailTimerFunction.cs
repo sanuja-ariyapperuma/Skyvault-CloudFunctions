@@ -1,6 +1,6 @@
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
-using skyvault_notification_schedular.Models;
+using skyvault_notification_schedular.Data;
 using skyvault_notification_schedular.Services;
 
 namespace skyvault_notification_schedular.Functions
@@ -8,8 +8,7 @@ namespace skyvault_notification_schedular.Functions
     public class EmailTimerFunction(
             ILoggerFactory loggerFactory,
             ICustomerRepository customerRepository,
-            ITemplateRepository templateRepository,
-            IEmailService emailService)
+            ITemplateRepository templateRepository)
     {
 
         [Function("EmailTimerFunctionr")]
@@ -37,7 +36,7 @@ namespace skyvault_notification_schedular.Functions
         private async Task SendBirthdayNotification()
         {
             var recipients = await customerRepository.GetCustomersWithBirthdayToday();
-            var birthdayImageURL = await templateRepository.GetEmailContent(NotificationTypeEnum.Birthday);
+            var birthdayImageURL = (await templateRepository.GetEmailContent(NotificationTypeEnum.Birthday))?.File;
 
             if (recipients == null || recipients.Count == 0)
             {
@@ -51,7 +50,7 @@ namespace skyvault_notification_schedular.Functions
                 return;
             }
 
-            LoggerService.Log.LogInformation("Sending birthday notifications to : {Count} clients", recipients.Count());
+            LoggerService.Log.LogInformation("Sending birthday notifications to : {Count} clients", recipients.Count);
 
             recipients.ForEach(recipient => recipient.SetBirthdayEmailBody(birthdayImageURL));
 
@@ -63,7 +62,7 @@ namespace skyvault_notification_schedular.Functions
         {
             string sixMonthsFromNow = DateTime.UtcNow.AddMonths(6).ToString("yyyy-MM-dd");
             var recipients = await customerRepository.GetCustomersWithPassportExpiryFromSixMonths(sixMonthsFromNow);
-            var message = await templateRepository.GetEmailContent(NotificationTypeEnum.PassportExpiration);
+            var message = (await templateRepository.GetEmailContent(NotificationTypeEnum.PassportExpiration))?.Content;
 
             if (recipients == null || recipients.Count == 0)
             {
@@ -77,7 +76,7 @@ namespace skyvault_notification_schedular.Functions
                 return;
             }
 
-            LoggerService.Log.LogInformation("Sending passport expiry notifications to : {Count} clients", recipients.Count());
+            LoggerService.Log.LogInformation("Sending passport expiry notifications to : {Count} clients", recipients.Count);
 
             recipients.ForEach(recipient => recipient.SetPassportOrVisaEmailBody(message));
 
@@ -89,7 +88,7 @@ namespace skyvault_notification_schedular.Functions
         {
             string threeMonthsFromNow = DateTime.UtcNow.AddMonths(3).ToString("yyyy-MM-dd");
             var recipients = await customerRepository.GetCustomersWithVisaExpiryFromThreeMonths(threeMonthsFromNow);
-            var message = await templateRepository.GetEmailContent(NotificationTypeEnum.VisaExpiration);
+            var message = (await templateRepository.GetEmailContent(NotificationTypeEnum.VisaExpiration))?.Content;
 
             if (recipients == null || recipients.Count == 0)
             {

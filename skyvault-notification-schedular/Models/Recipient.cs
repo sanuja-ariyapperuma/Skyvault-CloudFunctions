@@ -1,4 +1,6 @@
-﻿namespace skyvault_notification_schedular.Models;
+﻿using skyvault_notification_schedular.Data;
+
+namespace skyvault_notification_schedular.Models;
 public class Recipient
 {
     public string Name { get; set; } = String.Empty;
@@ -58,6 +60,14 @@ public class Recipient
     public void SetPassportOrVisaEmailBody(string content)
     {
         EmailBody = string.Format(HtmlTemplate, Name, $"<p>{content}</p>");
+    }
+
+    public void SetPromotionEmailBody(EmailContent emailContent)
+    {
+        string imageTag = string.IsNullOrEmpty(emailContent.File) ? "" : $"<img src='{emailContent.File}' alt='Oportunity Image' />";
+        string contentBody = string.IsNullOrEmpty(emailContent.Content) ? "" : $"<p>{emailContent.Content}</p>";
+
+        EmailBody = string.Format(HtmlTemplate, Name, $"{imageTag}<br/>{contentBody}");
     }
 }
 

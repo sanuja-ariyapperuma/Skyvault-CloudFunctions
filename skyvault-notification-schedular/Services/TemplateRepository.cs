@@ -1,12 +1,12 @@
 ﻿using Dapper;
 using MySql.Data.MySqlClient;
-using skyvault_notification_schedular.Models;
+using skyvault_notification_schedular.Data;
 
 namespace skyvault_notification_schedular.Services
 {
     public sealed class TemplateRepository(string connectionString) : ITemplateRepository
     {
-        public async Task<string?> GetEmailContent(NotificationTypeEnum notificationType)
+        public async Task<EmailContent?> GetEmailContent(NotificationTypeEnum notificationType)
         {
             string query = "SELECT {0} FROM notification_templates WHERE Active = 1 AND notification_type = {1}";
 
@@ -26,11 +26,18 @@ namespace skyvault_notification_schedular.Services
             }
         }
 
-        private async Task<string?> GetTemplateContentAsync(string query)
+        public Task<EmailContent?> GetPromotionContent(int templateId)
+        {
+            string query = "SELECT file, content FROM notification_templates WHERE id={0} AND notification_type = 4";
+            query = string.Format(query, templateId);
+            return GetTemplateContentAsync(query);
+        }
+
+        private async Task<EmailContent?> GetTemplateContentAsync(string query)
         {
             using var connection = new MySqlConnection(connectionString);
             await connection.OpenAsync();
-            return await connection.ExecuteScalarAsync<string>(query);
+            return await connection.QueryFirstOrDefaultAsync<EmailContent>(query);
         }
     }
 }

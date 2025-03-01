@@ -1,0 +1,7 @@
+﻿POST http://localhost:7123/api/PromotionalHTTPFunction
+Content-Type: application/json
+
+{
+  "TemplateId": 4,
+  "PromotionType": "Email"
+}
