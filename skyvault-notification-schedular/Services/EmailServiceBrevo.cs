@@ -2,6 +2,7 @@
 using brevo_csharp.Client;
 using brevo_csharp.Model;
 using Microsoft.Extensions.Logging;
+using skyvault_notification_schedular.Data;
 using skyvault_notification_schedular.Models;
 
 namespace skyvault_notification_schedular.Services
@@ -14,17 +15,19 @@ namespace skyvault_notification_schedular.Services
         private static readonly string SenderEmail = "a.sanuja.r@gmail.com";
         private static readonly string SenderName = "Travel Channel (Private) Limited";
         private static readonly int DelayBetweenBatches = 2000;
-        private readonly TransactionalEmailsApi transactionalEmailsApi;
 
         public EmailServiceBrevo(ILogger<EmailServiceBrevo> logger)
         {
             _logger = logger;
             Configuration.Default.ApiKey.Add("api-key", BrevoApiKey);
-            transactionalEmailsApi = new TransactionalEmailsApi();
+
+
         }
 
         public async System.Threading.Tasks.Task SendEmailAsync(List<Recipient> recipients, string subject)
         {
+
+
             int totalRecipientCount = recipients.Count;
 
             for (int i = 0; i < totalRecipientCount; i += BatchSize)
@@ -59,6 +62,7 @@ namespace skyvault_notification_schedular.Services
                 MessageVersions = messageVersions
             };
 
+            TransactionalEmailsApi transactionalEmailsApi = new TransactionalEmailsApi();
             var result = await transactionalEmailsApi.SendTransacEmailAsync(sendSmtpEmail);
 
             _logger.LogInformation("Email sent successfully. Result: {result}", result);
@@ -83,6 +87,28 @@ namespace skyvault_notification_schedular.Services
                 messageVersions.Add(messageVersion);
             }
             return messageVersions;
+        }
+
+        public async Task<BrevoAccountInformation> GetAccountInfomationAsync()
+        {
+            var accountApi = new AccountApi();
+            GetAccount response = await accountApi.GetAccountAsync();
+
+            var accountInformation = new BrevoAccountInformation
+            {
+                CompanyName = response.CompanyName,
+                CompanyEmailAddress = response.Email,
+                Plans = response.Plan
+                    .Where(plan => plan.Type == GetAccountPlan.TypeEnum.Free || plan.Type == GetAccountPlan.TypeEnum.PayAsYouGo)
+                    .Select(plan => new BrevoPlan
+                    {
+                        Type = plan.Type.ToString(),
+                        CreditsType = plan.CreditsType.ToString(),
+                        Credits = plan.Credits
+                    }).ToList()
+            };
+
+            return accountInformation;
         }
     }
 }

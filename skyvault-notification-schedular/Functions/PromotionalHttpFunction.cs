@@ -82,5 +82,25 @@ namespace skyvault_notification_schedular.Functions
             }
         }
 
+        [Function("GetAccountInformtaionFunction")]
+        public async Task<IActionResult> GetAccountInformtaionFunction([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequest req)
+        {
+            _logger.LogInformation("NewEndpointFunction called");
+
+            try
+            {
+                _logger.LogInformation("GetAccountInformtaionFunction called");
+
+                var accountInfo = await emailService.GetAccountInfomationAsync();
+
+                return new OkObjectResult(new { data = accountInfo });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An unexpected error occurred.");
+                return new BadRequestObjectResult("An unexpected error occurred.");
+            }
+        }
+
     }
 }

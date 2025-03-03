@@ -1,7 +1,15 @@
-﻿POST http://localhost:7123/api/PromotionalHTTPFunction
+﻿
+@BaseUrl http://localhost:7123/api
+
+POST {{BaseUrl}}/PromotionalHTTPFunction
 Content-Type: application/json
 
 {
   "TemplateId": 4,
   "PromotionType": "Email"
 }
+
+###
+
+GET {{BaseUrl}}/GetAccountInformtaionFunction
+Content-Type: application/json
