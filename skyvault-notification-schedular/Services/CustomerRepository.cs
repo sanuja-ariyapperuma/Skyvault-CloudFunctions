@@ -74,5 +74,15 @@ namespace skyvault_notification_schedular.Services
             var result = await _dataAccess.QueryAsync<Recipient>(sql);
             return [.. result];
         }
+
+        public async Task UnsubscribeEmail(string email)
+        {
+            string sql = $@"
+                UPDATE customer_profiles
+                SET preferred_comm_id = 1
+                WHERE email = '{email}'";
+
+            await _dataAccess.ExecuteAsync(sql);
+        }
     }
 }

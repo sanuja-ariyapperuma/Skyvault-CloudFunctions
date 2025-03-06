@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using skyvault_notification_schedular.Data;
+using skyvault_notification_schedular.Helpers;
 using skyvault_notification_schedular.Services;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Web;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace skyvault_notification_schedular.Functions
@@ -94,6 +97,49 @@ namespace skyvault_notification_schedular.Functions
                 var accountInfo = await emailService.GetAccountInfomationAsync();
 
                 return new OkObjectResult(new { data = accountInfo });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An unexpected error occurred.");
+                return new BadRequestObjectResult("An unexpected error occurred.");
+            }
+        }
+
+        [Function("Unsubscribe")]
+        public async Task<IActionResult> Unsubscribe([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
+        {
+            _logger.LogInformation("Unsubscribe called");
+            try
+            {
+                var query = HttpUtility.ParseQueryString(req.Url.Query);
+
+                string? token = query["token"];
+
+                if (string.IsNullOrEmpty(token) || !token.Contains('|'))
+                {
+                    _logger.LogError("Invalid request: Token not found.");
+                    return new BadRequestObjectResult("Invalid request: Token not found.");
+                }
+
+                string[] parts = token.Split('|');
+
+                if (parts.Length != 2)
+                {
+                    return new BadRequestObjectResult("Invalid token format.");
+                }
+
+                string email = HttpUtility.UrlDecode(parts[0]);
+                string receivedSignature = parts[1];
+
+                if (receivedSignature != TokenService.GenerateToken(email))
+                {
+                    return new UnauthorizedResult();
+                }
+
+                var unsubscribe = customerRepository.UnsubscribeEmail(email);
+
+
+                return new OkObjectResult("You have been unsubscribed successfully.");
             }
             catch (Exception ex)
             {

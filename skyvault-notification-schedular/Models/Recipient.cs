@@ -1,4 +1,6 @@
 ﻿using skyvault_notification_schedular.Data;
+using skyvault_notification_schedular.Helpers;
+using System.Web;
 
 namespace skyvault_notification_schedular.Models;
 public class Recipient
@@ -45,6 +47,7 @@ public class Recipient
                     </div>
                     <div class='footer'>
                         <p>This is an automated message, please do not reply.</p>
+                        {2}
                     </div>
                 </div>
             </body>
@@ -54,12 +57,12 @@ public class Recipient
     public void SetBirthdayEmailBody(string imageURL)
     {
         string content = $"<img src='{imageURL}' alt='Birthday Image' />";
-        EmailBody = string.Format(HtmlTemplate, Name, content);
+        EmailBody = string.Format(HtmlTemplate, Name, content, GetUnsubscribeLink());
     }
 
     public void SetPassportOrVisaEmailBody(string content)
     {
-        EmailBody = string.Format(HtmlTemplate, Name, $"<p>{content}</p>");
+        EmailBody = string.Format(HtmlTemplate, Name, $"<p>{content}</p>", GetUnsubscribeLink());
     }
 
     public void SetPromotionEmailBody(EmailContent emailContent)
@@ -67,7 +70,30 @@ public class Recipient
         string imageTag = string.IsNullOrEmpty(emailContent.File) ? "" : $"<img src='{emailContent.File}' alt='Oportunity Image' />";
         string contentBody = string.IsNullOrEmpty(emailContent.Content) ? "" : $"<p>{emailContent.Content}</p>";
 
-        EmailBody = string.Format(HtmlTemplate, Name, $"{imageTag}<br/>{contentBody}");
+        EmailBody = string.Format(HtmlTemplate, Name, $"{imageTag}<br/>{contentBody}", GetUnsubscribeLink());
+    }
+
+    private string GetUnsubscribeLink() 
+    {
+        string token = TokenService.GenerateToken(Email);
+        string url = Environment.GetEnvironmentVariable("AZURE_FUNCTION_HOSTED_URL");
+
+        if (string.IsNullOrEmpty(url))
+        {
+            throw new InvalidOperationException("Azure Function hosted URL not found in environment variables.");
+        }
+
+        string unsubscribeLink = @"<p style=""font-size: 12px; text-align: center; color: #999;"">
+                                You are receiving this email because you subscribed to our updates.
+                                <a href=""{0}/api/Unsubscribe?token={1}"" 
+                                   style=""color: #aaa; text-decoration: none;"">
+                                   Unsubscribe
+                                </a>
+                            </p>";
+
+        string emailWithSignature = String.Concat(HttpUtility.UrlEncode(Email), '|', token);
+
+        return String.Format(unsubscribeLink, url, emailWithSignature);
     }
 }
 

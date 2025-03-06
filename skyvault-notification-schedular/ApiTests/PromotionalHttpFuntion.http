@@ -13,3 +13,7 @@ Content-Type: application/json
 
 GET {{BaseUrl}}/GetAccountInformtaionFunction
 Content-Type: application/json
+
+###
+
+GET {{BaseUrl}}/Unsubscribe?token=sanujaariyapperuma%40gmail.com|Gm5VzQWUItm1YndyDCpx2WiVY561slyEE8My_60zzxQ

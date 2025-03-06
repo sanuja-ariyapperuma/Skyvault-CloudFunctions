@@ -20,8 +20,6 @@ namespace skyvault_notification_schedular.Services
         {
             _logger = logger;
             Configuration.Default.ApiKey.Add("api-key", BrevoApiKey);
-
-
         }
 
         public async System.Threading.Tasks.Task SendEmailAsync(List<Recipient> recipients, string subject)
@@ -110,5 +108,6 @@ namespace skyvault_notification_schedular.Services
 
             return accountInformation;
         }
+
     }
 }

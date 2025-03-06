@@ -9,5 +9,6 @@ namespace skyvault_notification_schedular.Services
         Task<List<Recipient>> GetCustomersWithPassportExpiryFromSixMonths(string date);
         Task<List<Recipient>> GetCustomersWithVisaExpiryFromThreeMonths(string date);
         Task<List<Recipient>> GetCustomersForPromotion(CommiunicationMethodEnum commiunicationMethod);
+        Task UnsubscribeEmail(string email);
     }
 }
