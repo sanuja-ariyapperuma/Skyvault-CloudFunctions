@@ -12,8 +12,8 @@ namespace skyvault_notification_schedular.Functions
             IEmailService emailService)
     {
 
-        [Function("EmailTimerFunctionr")]
-        public async Task RunAsync([TimerTrigger("0 */1 * * * *")] TimerInfo myTimer)
+        [Function("EmailTimerFunction")]
+        public async Task RunAsync([TimerTrigger("0 0 0 * * *")] TimerInfo myTimer)
         {
             LoggerService.Initialize(loggerFactory);
 
