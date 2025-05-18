@@ -8,7 +8,8 @@ namespace skyvault_notification_schedular.Functions
     public class EmailTimerFunction(
             ILoggerFactory loggerFactory,
             ICustomerRepository customerRepository,
-            ITemplateRepository templateRepository)
+            ITemplateRepository templateRepository,
+            IEmailService emailService)
     {
 
         [Function("EmailTimerFunctionr")]
@@ -54,7 +55,7 @@ namespace skyvault_notification_schedular.Functions
 
             recipients.ForEach(recipient => recipient.SetBirthdayEmailBody(birthdayImageURL));
 
-            //await emailService.SendEmailAsync(recipients, "Greetings from Travel Channel (Private) Limited");
+            await emailService.SendEmailAsync(recipients, "Greetings from Travel Channel (Private) Limited");
         }
 
 
@@ -80,7 +81,7 @@ namespace skyvault_notification_schedular.Functions
 
             recipients.ForEach(recipient => recipient.SetPassportOrVisaEmailBody(message));
 
-            //await emailService.SendEmailAsync(recipients, "Passport Expiry Reminder - Travel Channel (Private) Limited");
+            await emailService.SendEmailAsync(recipients, "Passport Expiry Reminder - Travel Channel (Private) Limited");
 
         }
 
@@ -116,7 +117,7 @@ namespace skyvault_notification_schedular.Functions
                 recipient.EmailBody = recipient.EmailBody.Replace("country_name", recipient.VisaCountry);
             }
 
-            //await emailService.SendEmailAsync(recipients, "Visa Expiry Reminder - Travel Channel (Private) Limited");
+            await emailService.SendEmailAsync(recipients, "Visa Expiry Reminder - Travel Channel (Private) Limited");
         }
     }
 }

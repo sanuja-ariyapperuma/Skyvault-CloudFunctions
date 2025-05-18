@@ -73,7 +73,7 @@ public class Recipient
         EmailBody = string.Format(HtmlTemplate, Name, $"{imageTag}<br/>{contentBody}", GetUnsubscribeLink());
     }
 
-    private string GetUnsubscribeLink() 
+    private string GetUnsubscribeLink()
     {
         string token = TokenService.GenerateToken(Email);
         string url = Environment.GetEnvironmentVariable("AZURE_FUNCTION_HOSTED_URL");

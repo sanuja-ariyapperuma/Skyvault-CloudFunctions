@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
@@ -22,7 +23,8 @@ namespace skyvault_notification_schedular.Functions
         private readonly ILogger<PromotionalHttpFunction> _logger = logger;
 
         [Function("PromotionalHTTPFunction")]
-        public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequest req)
+        [Authorize]
+        public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest req)
         {
             _logger.LogInformation("PromotionalHTTPFunction called");
 
@@ -88,7 +90,6 @@ namespace skyvault_notification_schedular.Functions
         [Function("GetAccountInformtaionFunction")]
         public async Task<IActionResult> GetAccountInformtaionFunction([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequest req)
         {
-            _logger.LogInformation("NewEndpointFunction called");
 
             try
             {
