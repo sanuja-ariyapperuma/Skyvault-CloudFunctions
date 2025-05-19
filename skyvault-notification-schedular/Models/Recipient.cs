@@ -9,6 +9,7 @@ public class Recipient
     public string Email { get; set; } = String.Empty;
     public string VisaCountry { get; set; } = String.Empty;
     public string EmailBody { get; set; } = String.Empty;
+    public string PassportNumber { get; set; } = String.Empty;
 
     private const string HtmlTemplate = @"
         <html>

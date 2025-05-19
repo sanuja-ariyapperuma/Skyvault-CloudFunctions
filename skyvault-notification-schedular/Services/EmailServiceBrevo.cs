@@ -63,13 +63,13 @@ namespace skyvault_notification_schedular.Services
             TransactionalEmailsApi transactionalEmailsApi = new TransactionalEmailsApi();
             var result = await transactionalEmailsApi.SendTransacEmailAsync(sendSmtpEmail);
 
-            _logger.LogInformation("Email sent successfully. Result: {result}", result);
-
             //Check if the email was sent successfully
-            if (result == null || result.MessageId == null)
+            if (result == null)
             {
                 _logger.LogError("Email sending failed for batch {batchNumber}.", batchNumber);
             }
+
+            _logger.LogInformation("Email sent successfully. Result: {@result}", result);
         }
 
         private static List<SendSmtpEmailMessageVersions> GenerateMessageVersions(List<Recipient> recipients)

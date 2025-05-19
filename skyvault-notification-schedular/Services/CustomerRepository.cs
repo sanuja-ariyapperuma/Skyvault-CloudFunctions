@@ -8,12 +8,13 @@ namespace skyvault_notification_schedular.Services
         private readonly string _commonSQL = @"
                 SELECT CONCAT(s.salutation_name, '. ', p.other_names, ' ', p.last_name) AS name, 
                        cp.email,
-                       c.country_name AS VisaCountry
+                       c.country_name AS VisaCountry,
+                       CONCAT('*****', RIGHT(p.passport_number, 3)) AS PassportNumber
                 FROM customer_profiles cp 
                 INNER JOIN passports p ON cp.id = p.customer_profile_id 
                 INNER JOIN salutations s ON cp.salutation_id = s.id 
                 LEFT JOIN visas vsa ON p.id = vsa.passport_id
-                INNER JOIN countries c ON vsa.DestinationCountryId = c.id
+                LEFT JOIN countries c ON vsa.DestinationCountryId = c.id
                 WHERE cp.email != ''
             ";
 
