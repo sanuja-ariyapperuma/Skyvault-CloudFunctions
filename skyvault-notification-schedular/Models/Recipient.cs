@@ -68,9 +68,9 @@ public class Recipient
 
     public void SetPromotionEmailBody(EmailContent emailContent)
     {
-        string imageTag = string.IsNullOrEmpty(emailContent.File) ? "" : $"<img src='{emailContent.File}' alt='Oportunity Image' />";
+        string imageFullPath = FileHelpers.GetFileFullPath(emailContent.File, NotificationTypeEnum.Custom);
+        string imageTag = string.IsNullOrEmpty(emailContent.File) ? "" : $"<img src='{imageFullPath}' alt='Oportunity Image' />";
         string contentBody = string.IsNullOrEmpty(emailContent.Content) ? "" : $"<p>{emailContent.Content}</p>";
-
         EmailBody = string.Format(HtmlTemplate, Name, $"{imageTag}<br/>{contentBody}", GetUnsubscribeLink());
     }
 
