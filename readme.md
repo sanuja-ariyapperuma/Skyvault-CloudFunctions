@@ -18,6 +18,11 @@ Its primary goal is to ensure customers receive **timely, relevant, and business
 The solution is designed with **scalability, clarity, and extensibility** in mind.
 
 ---
+## Architecture
+
+![architecture](docs/architecture.png)
+
+---
 
 ## 🎯 Key Responsibilities
 
